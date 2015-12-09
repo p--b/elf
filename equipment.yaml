@@ -1,0 +1,17 @@
+transmitters:
+    dramsoc: 6
+    mtsoc: 12
+microphones:
+    capsule-bodged:
+        qty: 3
+        transmitters:
+            - dramsoc
+            - mtsoc
+    capsule:
+        qty: 16
+        transmitters:
+            - mtsoc
+    headset:
+        qty: 6
+        transmitters:
+            - dramsoc
