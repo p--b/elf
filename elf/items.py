@@ -12,3 +12,7 @@ class ItemClass:
         """Translate an instance ID (zero-indexed, up to the
            stated cardinality) into a useful identifier."""
         return
+
+class YesItem(ItemClass):
+    def lookup(self, id):
+        return str(self) + " ID: " + str(id)

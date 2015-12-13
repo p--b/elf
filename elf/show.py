@@ -6,11 +6,15 @@ class Act:
         self.scenes = collections.OrderedDict()
         self.show   = None
 
+    def __len__(self):
+        return len(self.scenes)
+
     def addScene(self, scene):
         self.scenes[scene.id] = scene
 
     def newScene(self, id):
-        self.addScene(s = Scene(id, self))
+        s = Scene(id, self)
+        self.addScene(s)
         return s
 
     def firstScene(self):
@@ -39,11 +43,23 @@ class Scene:
         self.nextScene     = None
         self.actors        = set()
 
+    def __len__(self):
+        return len(self.actors)
+
     def setName(self, name):
         self.name = name
 
     def addActor(self, actor):
-        self.actors |= actor
+        self.actors.add(actor)
+
+    def addGroup(self, group):
+        self.actors |= group
+
+    def getActors(self):
+        return self.actors
+
+    def hasActor(self, actor):
+        return actor in self.actors
 
     def next():
         if not self.linked:
@@ -66,3 +82,15 @@ class Show:
     def addAct(self, act):
         self.acts[act.id] = act
         act.show          = self
+
+class ActorGroup:
+    def __init__(self, id, actors = []):
+        self.name   = None,
+        self.id     = id
+        self.actors = set(actors)
+ 
+    def setName(self, name):
+        self.name = name
+
+    def addActors(self, actors):
+        self.actors |= set(actors)
