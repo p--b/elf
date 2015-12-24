@@ -1,0 +1,29 @@
+show:
+    name: Revue 2015
+    company: MTSoc & DramSoc
+actors:
+    AA: Anonymous Aardvark
+    BB: Brilliant Brian
+    CC: Cheeky Charlie
+    DD: Dapper Dan
+    EE: Excited Edward
+    FF: Frantic Franz
+ensembles:
+    BV:
+        - BB
+        - CC
+        - DD
+act:
+    1:
+        1:
+            - name: Awesome Song
+            - AA
+            - @BV
+        2:
+            - name: Even Better
+            - DD
+            - EE
+            - FF
+        3: 
+            - name: Negative
+            - BB

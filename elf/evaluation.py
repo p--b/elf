@@ -1,6 +1,7 @@
 import abc
+import math
 
-class Evaluator:
+class Evaluator(object):
     __metaclass__ = abc.ABCMeta
     evaluators    = []
 
@@ -89,8 +90,15 @@ class QuickChangeEvaluator(Evaluator):
         # Do not penalise the beginning of the act
         for scene in plot.scenes[1:]:
             for item, actor in scene.getPickups().iteritems():
-                if 0 == scene.distanceToUse(item):
-                    qchanges += 1
+                forwards  = scene.distanceToUse(item)
+
+                if scene.previous is not None:
+                    backwards = scene.previous.distanceToUse(item, backwards = True)
+                else:
+                    backwards = -1
+
+                delta = (0 == forwards) + (0 == backwards)
+                qchanges += delta
 
         # Set reference of 1 quick-change per scene is -1
         return - qchanges / len(plot)
@@ -123,6 +131,10 @@ class ConcurrentSwapEvaluator(Evaluator):
 class SwappinessEvaluator(Evaluator):
     def evaluate(self, plot):
         actScenes  = plot.getActorItems()
+
+        if len(actScenes) == 0:
+            return 0
+
         swappiness = 0
 
         for actor, itemSet in actScenes.iteritems():

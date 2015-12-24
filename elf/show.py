@@ -26,12 +26,13 @@ class Act:
     def linkScenes(self):
         previous = None
 
-        for scId, scene in self.scenes:
+        for scId, scene in self.scenes.iteritems():
             if previous:
                 previous.nextScene = scene
 
             scene.previousScene = previous
             scene.linked = True
+            previous = scene
 
 class Scene:
     def __init__(self, id, act):
@@ -61,13 +62,13 @@ class Scene:
     def hasActor(self, actor):
         return actor in self.actors
 
-    def next():
+    def next(self):
         if not self.linked:
             self.act.linkScenes()
 
         return self.nextScene
 
-    def previous():
+    def previous(self):
         if not self.linked:
             self.act.linkScenes()
 
@@ -88,7 +89,7 @@ class ActorGroup:
         self.name   = None,
         self.id     = id
         self.actors = set(actors)
- 
+
     def setName(self, name):
         self.name = name
 
